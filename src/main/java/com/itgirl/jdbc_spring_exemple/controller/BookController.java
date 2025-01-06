@@ -14,19 +14,19 @@ import java.util.Optional;
 @RestController
 public class BookController {
 
-    @Autowired
-    private BookRepository bookRepository;
+    public BookRepository bookRepository;
 
+    @Autowired
     public BookController(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
-    @GetMapping("/book/all")
+    @GetMapping("/books")
     public List<Book> getAllBooks() {
         return bookRepository.findAllBooks();
     }
 
-    @GetMapping("/book/{id}")
+    @GetMapping("/books/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable("id") Long id) {
         Optional<Book> book = bookRepository.findById(id);
         return book.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
